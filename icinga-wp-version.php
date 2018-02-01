@@ -24,9 +24,9 @@ require_once 'wp-load.php';
 function explode_version ($ver)
 {
     $res = array_map ('intval', explode ('.', $ver));
-    $res[0] = isset ($res[0]) ? $res [0] : 0;
-    $res[1] = isset ($res[1]) ? $res [1] : 0;
-    $res[2] = isset ($res[2]) ? $res [2] : 0;
+    $res[0] = isset ($res[0]) ? $res[0] : 0;
+    $res[1] = isset ($res[1]) ? $res[1] : 0;
+    $res[2] = isset ($res[2]) ? $res[2] : 0;
     return $res;
 }
 
