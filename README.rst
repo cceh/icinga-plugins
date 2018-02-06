@@ -10,6 +10,9 @@ Wordpress Version Check
 
 Checks if the installed version of Wordpress is current.
 
+Installation
+------------
+
 The Wordpress Version Plugin needs a php script in the Wordpress directory.
 
 .. code-block:: bash
@@ -35,7 +38,7 @@ Icinga.
 Mediawiki Version Check
 =======================
 
-check_mediawiki_version.py
+* check_mediawiki_version.py
 
 
 Free Memory Check
@@ -43,7 +46,7 @@ Free Memory Check
 
 Would you believe there is no standard icinga plugin to check free memory?
 
-check_memory.py
+* check_memory.py
 
 
 Check Mensa
