@@ -21,7 +21,7 @@ The Wordpress Version Plugin needs a php script in the Wordpress directory.
 
    cd <path/to/your/wp-load.php>
    wget https://raw.githubusercontent.com/cceh/icinga-plugins/master/icinga-wp-version.php
-   chmod 755 icinga-wp-version.php
+   chmod 644 icinga-wp-version.php
 
 To test the installation enter this URL into your browser:
 

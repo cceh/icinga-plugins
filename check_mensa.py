@@ -4,9 +4,7 @@
 #
 # Copy this file into /usr/local/lib/nagios/plugins/
 #
-# Usage: check_mensa [DATE]
-#
-# DATE format = 1970-12-31
+# Usage: check_mensa
 #
 
 import datetime
@@ -19,38 +17,28 @@ import requests
 
 SERVICE_NAME = 'MENSA'
 SECTIONS     = ['EG Nord', 'EG Süd', 'MG Nord', 'MG Süd']
-URL          = 'http://www.max-manager.de/daten-extern/sw-koeln/html/speiseplan-render.php'
+URL          = 'https://www.kstw.de/gastronomie/speiseplan?l=1'
 USER_AGENT   = 'check_mensa.py/0.0.1 Icinga Plugin'
 
 try:
     # Scrape the mensa site.
 
-    data = {
-        'func'  : 'make_spl',
-        'locId' : 'unimensa',
-        'lang'  : 'de',
-        'w'     : 'dw',
-        'date'  : sys.argv[1] if len (sys.argv) > 1 else datetime.date.today ().isoformat (),
-    }
-
-    r = requests.post (URL, headers = { 'user-agent': USER_AGENT }, data = data)
+    r = requests.get (URL, headers = { 'user-agent': USER_AGENT })
     r.raise_for_status ()
 
     # The server just sends an HTML fragment without encoding information. It
     # works for them because the fragment gets inserted into an utf-8 encoded
     # page, thus inheriting the encoding.  But we have to declare the encoding
     # explicitly.
-    r.encoding = 'utf-8'
+    # r.encoding = 'utf-8'
 
-    # print (r.text)
-
-    # Look for <td class="pk ...">EG Nord 11... </td>
+    # Look for <div class="tx-epwerkmenu-menu-locationpart-title"><strong>MG Nord</strong></div>
 
     up = set ()
     root = html.fromstring (r.text)
-    for e in root.xpath ('//td[contains (concat (" ", @class, " "), " pk ")]'):
+    for e in root.xpath ('//div[contains (concat (" ", @class, " "), " tx-epwerkmenu-menu-locationpart-title ")]'):
         # print (e.text_content ())
-        m = re.search (r'(EG|MG)\s+(Nord|Süd)[^1]+11', e.text_content ())
+        m = re.search (r'(EG|MG)\s+(Nord|Süd)', e.text_content ())
         if m:
             up.add ("%s %s" % (m.group (1), m.group (2)))
 
