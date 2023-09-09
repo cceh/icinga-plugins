@@ -79,18 +79,18 @@ $what = array ();
 if ($upd_status & 0x04) {
     $upd_cores = array_keys ($upd_cores);
     natsort ($upd_cores);
-    $what[] = 'Core (' . implode ($upd_cores, ', ') . ')';
+    $what[] = 'Core (' . implode (', ', $upd_cores) . ')';
 }
 if ($upd_status & 0x02) {
-    $what[] = count ($upd_plugins) . ' Plugin (' . implode ($upd_plugins, ', ') . ')';
+    $what[] = count ($upd_plugins) . ' Plugin (' . implode (', ', $upd_plugins) . ')';
 }
 if ($upd_status & 0x01) {
-    $what[] = count ($upd_themes) . ' Theme (' . implode ($upd_themes, ', ') . ')';
+    $what[] = count ($upd_themes) . ' Theme (' . implode (', ', $upd_themes) . ')';
 }
 
 $msg = '';
 if ($upd_status) {
-    $msg = ': ' . implode ($what, ' and ') . ' updates available';
+    $msg = ': ' . implode (' and ', $what) . ' updates available';
 }
 
 echo "WORDPRESS $status - Version = $wp_version$msg";

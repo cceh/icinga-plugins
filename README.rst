@@ -4,6 +4,8 @@
 
 A collection of icinga2 plugins.
 
+Copy the plugins into `/usr/local/lib/nagios/plugins/`
+
 
 Wordpress Version Check
 =======================
@@ -25,14 +27,15 @@ The Wordpress Version Plugin needs a php script in the Wordpress directory.
 
 To test the installation enter this URL into your browser:
 
-   http://your.wordpress.site/icinga-wp-version.php
+   https://your.wordpress.site/icinga-wp-version.php
 
 The answer should be one line of text:
 
    WORDPRESS OK - Version = x.y.z
 
-If it worked, tell Jonathan the URL you just used, so he can add it to the CCeH
-Icinga.
+Then use the passthru icinga plugin to connect to the php plugin:
+
+   /path/to/check_passthru.py https://your.wordpress.site/icinga-wp-version.php
 
 
 Mediawiki Version Check
@@ -49,6 +52,14 @@ Would you believe there is no standard icinga plugin to check free memory?
 * check_memory.py
 
 
+Reboot Required Check
+=====================
+
+Checks if the machine needs rebooting after a software update.
+
+* check_reboot_required.py
+
+
 Check Mensa
 ===========
 
@@ -61,7 +72,15 @@ University of Cologne.
 Passthru Plugin
 ===============
 
-Echoes the check results gotten from a remote URL.  Needed for the Wordpress
-version check.
+Echoes the check results obtained from a remote URL or local file.  Needed for the
+Wordpress version check and pnpm audit.
 
 * check_passthru.py
+
+
+pnpm Audit
+==========
+
+Performs a pnpm audit of your project's javascript dependencies.
+
+* check_pnpm_audit.py

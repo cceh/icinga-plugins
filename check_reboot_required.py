@@ -16,16 +16,26 @@ import sys
 PATH = "/var/run/reboot-required"
 PATH_PKGS = "/var/run/reboot-required.pkgs"
 
-parser = argparse.ArgumentParser (description = 'Icinga Reboot-Required Plugin')
-parser.add_argument('-w', '--warning', type = int, default = 0,
-                    help = 'the timespan in seconds before a reboot becomes a warning (default: 0)')
-parser.add_argument('-c', '--critical', type = int, default = 7 * 86400,
-                    help = 'the timespan in seconds before a reboot becomes critical (default: 7 days)')
+parser = argparse.ArgumentParser(description="Icinga Reboot-Required Plugin")
+parser.add_argument(
+    "-w",
+    "--warning",
+    type=int,
+    default=0,
+    help="the timespan in seconds before a reboot becomes a warning (default: 0)",
+)
+parser.add_argument(
+    "-c",
+    "--critical",
+    type=int,
+    default=7 * 86400,
+    help="the timespan in seconds before a reboot becomes critical (default: 7 days)",
+)
 
-args = parser.parse_args ()
+args = parser.parse_args()
 
 try:
-    delay = 0
+    delay = 0.0
     delay_msg = ""
 
     if os.path.isfile(PATH):
@@ -43,10 +53,10 @@ try:
         sys.exit(1)
     if delay > 0:
         print("REBOOT OK{delay_msg}")
-        sys.exit (0)
+        sys.exit(0)
     print("REBOOT OK")
-    sys.exit (0)
+    sys.exit(0)
 
 except Exception as exc:
-    print ("UNKNOWN UNKNOWN: %s" % str (exc))
-    sys.exit (3)
+    print("UNKNOWN UNKNOWN: %s" % str(exc))
+    sys.exit(3)
