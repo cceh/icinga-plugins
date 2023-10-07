@@ -40,11 +40,12 @@ try:
     print(text.strip())
 
     fields = text.split()
-    if fields[1] == "OK":
+    f = fields[1].strip(":")
+    if f == "OK":
         sys.exit(0)
-    if fields[1] == "WARNING":
+    if f == "WARNING":
         sys.exit(1)
-    if fields[1] == "CRITICAL":
+    if f == "CRITICAL":
         sys.exit(2)
     sys.exit(3)
 
